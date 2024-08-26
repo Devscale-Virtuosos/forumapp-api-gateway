@@ -7,7 +7,7 @@ const app = express();
  */
 // forwarding to users service
 app.use(
-  "/users",
+  "/api/users",
   createProxyMiddleware({
     target: "http://users:8000",
   })
@@ -15,8 +15,9 @@ app.use(
 
 // forwarding to replies service
 app.use(
+  "/api/replies",
   createProxyMiddleware({
-    target: "http://localhost:8001",
+    target: "http://replies:8001",
   })
 );
 
