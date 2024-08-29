@@ -21,6 +21,14 @@ app.use(
   })
 );
 
+// forwarding to threads service
+app.use(
+  "/api/threads",
+  createProxyMiddleware({
+    target: "http://threads:8002",
+  })
+);
+
 app.listen(process.env.PORT || 8010, () => {
   console.log(`Server running at port: ${process.env.PORT ?? 8010}`);
 });
