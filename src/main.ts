@@ -1,5 +1,8 @@
 import express from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
+
+import { env } from "./utils/env";
+
 const app = express();
 
 /**
@@ -9,7 +12,7 @@ const app = express();
 app.use(
   "/api/users",
   createProxyMiddleware({
-    target: "http://users:8000",
+    target: env.USERS_SERVICE_URL,
   })
 );
 
@@ -17,7 +20,7 @@ app.use(
 app.use(
   "/api/replies",
   createProxyMiddleware({
-    target: "http://replies:8001",
+    target: env.REPLIES_SERVICE_URL,
   })
 );
 
@@ -25,10 +28,10 @@ app.use(
 app.use(
   "/api/threads",
   createProxyMiddleware({
-    target: "http://threads:8002",
+    target: env.THREADS_SERVICE_URL,
   })
 );
 
-app.listen(process.env.PORT || 8010, () => {
-  console.log(`Server running at port: ${process.env.PORT ?? 8010}`);
+app.listen(env.PORT || 8010, () => {
+  console.log(`Server running at port: ${env.PORT ?? 8010}`);
 });
